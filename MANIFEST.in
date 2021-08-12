@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include conceptual *.css
+recursive-include conceptual *.csv
+recursive-include conceptual *.html
+recursive-include conceptual *.ico
+recursive-include conceptual *.js
+recursive-include conceptual *.json
+recursive-include conceptual *.md
+recursive-include conceptual *.png
+recursive-include conceptual *.py
+recursive-include conceptual *.svg
+recursive-include conceptual *.txt
+recursive-exclude conceptual *.pyc
