@@ -8,6 +8,7 @@ app_icon = "octicon octicon-file-directory"
 app_color = "grey"
 app_email = "team@khatavahi.in"
 app_license = "MIT"
+app_logo_url = "/files/cd.jpg"
 
 # Includes in <head>
 # ------------------
