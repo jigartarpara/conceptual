@@ -97,6 +97,11 @@ app_logo_url = "/files/cd.jpg"
 # 		"on_trash": "method"
 #	}
 # }
+doc_events = {
+    "DSR Surface": {
+        "validate": "conceptual.utility.dsr_utility.set_working_hours"
+    }
+}
 
 # Scheduled Tasks
 # ---------------
@@ -147,24 +152,24 @@ app_logo_url = "/files/cd.jpg"
 # --------------------
 
 user_data_fields = [
-	{
-		"doctype": "{doctype_1}",
-		"filter_by": "{filter_by}",
-		"redact_fields": ["{field_1}", "{field_2}"],
-		"partial": 1,
-	},
-	{
-		"doctype": "{doctype_2}",
-		"filter_by": "{filter_by}",
-		"partial": 1,
-	},
-	{
-		"doctype": "{doctype_3}",
-		"strict": False,
-	},
-	{
-		"doctype": "{doctype_4}"
-	}
+    {
+        "doctype": "{doctype_1}",
+        "filter_by": "{filter_by}",
+        "redact_fields": ["{field_1}", "{field_2}"],
+        "partial": 1,
+    },
+    {
+        "doctype": "{doctype_2}",
+        "filter_by": "{filter_by}",
+        "partial": 1,
+    },
+    {
+        "doctype": "{doctype_3}",
+        "strict": False,
+    },
+    {
+        "doctype": "{doctype_4}"
+    }
 ]
 
 # Authentication and authorization
@@ -173,4 +178,3 @@ user_data_fields = [
 # auth_hooks = [
 # 	"conceptual.auth.validate"
 # ]
-
