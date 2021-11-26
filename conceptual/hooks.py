@@ -99,7 +99,7 @@ app_logo_url = "/files/cd.jpg"
 # }
 doc_events = {
     "DSR Surface": {
-        "validate": "conceptual.utility.dsr_utility.set_working_hours"
+        "validate": "conceptual.utility.dsr_utility.validate_dsr"
     }
 }
 
