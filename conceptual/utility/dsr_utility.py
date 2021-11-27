@@ -24,7 +24,17 @@ def update_dsr(dsr):
     set_total_hsd_consumption(doc)
     set_total_shift_hours(doc)
     set_total_idle_time(doc)
+    set_totals(doc)
     doc.save()
+
+
+def set_totals(doc):
+    doc.drill_rate_with_marching = doc.total_drill_meterage/doc.total_working_hours
+    doc.drill_rate_without_marching = doc.total_drill_meterage/doc.total_engine_hours
+    doc.percussion_rate = doc.total_drill_meterage/doc.total_percussion_hours
+    doc.fuel_consumption_per_hour = doc.total_hsd_consumption/doc.total_engine_hours
+    doc.availability = (doc.total_scheduled_hours -
+                        doc.total_idle_hours) / (doc.total_scheduled_hours*100)
 
 
 def set_working_hours(doc):
