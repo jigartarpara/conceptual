@@ -103,6 +103,9 @@ doc_events = {
     },
     "Machine": {
         "validate": "conceptual.utility.machine_utility.validate_machine"
+    },
+    "DSR Surface Report": {
+        "validate": "conceptual.utility.dsr_surface_report_utility.validate_dsr_surface_report"
     }
 }
 
@@ -129,7 +132,8 @@ doc_events = {
 scheduler_events = {
     "hourly": [
         "conceptual.utility.dsr_utility.enque_update_dsr",
-        "conceptual.utility.machine_utility.enque_update_machine"
+        "conceptual.utility.machine_utility.enque_update_machine",
+        "conceptual.utility.dsr_surface_report_utility.enque_update_dsr_surface_report"
     ]
 }
 

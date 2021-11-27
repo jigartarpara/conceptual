@@ -18,6 +18,7 @@ def validate_dsr(doc, method):
     set_total_hsd_consumption(doc)
     set_total_shift_hours(doc)
     set_total_idle_time(doc)
+    set_totals(doc)
 
 
 @frappe.whitelist()
