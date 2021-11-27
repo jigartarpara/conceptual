@@ -2,6 +2,7 @@ import frappe
 from datetime import datetime
 
 
+@frappe.whitelist()
 def calculate_time_diff(name):
     doc = frappe.get_doc("Shift Report", name)
     for row in doc.breakdown_detail:

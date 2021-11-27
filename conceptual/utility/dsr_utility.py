@@ -1,6 +1,7 @@
 import frappe
 
 
+@frappe.whitelist()
 def validate_dsr(doc):
     set_working_hours(doc)
     set_total_engine_hours(doc)
@@ -12,6 +13,7 @@ def validate_dsr(doc):
     set_total_idle_time(doc)
 
 
+@frappe.whitelist()
 def update_dsr(dsr):
     doc = frappe.get_doc("DSR Surface", dsr)
     set_working_hours(doc)
@@ -22,7 +24,7 @@ def update_dsr(dsr):
     set_total_hsd_consumption(doc)
     set_total_shift_hours(doc)
     set_total_idle_time(doc)
-    doc.save(ignore_permissions=True)
+    doc.save()
 
 
 def set_working_hours(doc):
