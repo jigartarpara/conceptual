@@ -22,7 +22,7 @@ def update_dsr(dsr):
     set_total_hsd_consumption(doc)
     set_total_shift_hours(doc)
     set_total_idle_time(doc)
-    doc.save()
+    doc.save(ignore_permissions=True)
 
 
 def set_working_hours(doc):
