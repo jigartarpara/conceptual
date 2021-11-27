@@ -37,12 +37,19 @@ def update_dsr(dsr):
 
 
 def set_totals(doc):
-    doc.drill_rate_with_marching = doc.total_drill_meterage/doc.total_working_hours
-    doc.drill_rate_without_marching = doc.total_drill_meterage/doc.total_engine_hours
-    doc.percussion_rate = doc.total_drill_meterage/doc.total_percussion_hours
-    doc.fuel_consumption_per_hour = doc.total_hsd_consumption/doc.total_engine_hours
-    doc.availability = (doc.total_scheduled_hours -
-                        doc.total_idle_hours) / (doc.total_scheduled_hours*100)
+    try:
+        doc.drill_rate_with_marching = doc.total_drill_meterage/doc.total_working_hours
+        doc.drill_rate_without_marching = doc.total_drill_meterage/doc.total_engine_hours
+        doc.percussion_rate = doc.total_drill_meterage/doc.total_percussion_hours
+        doc.fuel_consumption_per_hour = doc.total_hsd_consumption/doc.total_engine_hours
+        doc.availability = (doc.total_scheduled_hours -
+                            doc.total_idle_hours) / (doc.total_scheduled_hours*100)
+    except ZeroDivisionError:
+        doc.drill_rate_with_marching = 0
+        doc.drill_rate_without_marching = 0
+        doc.percussion_rate = 0
+        doc.fuel_consumption_per_hour = 0
+        doc.availability = 0
 
 
 def set_working_hours(doc):
