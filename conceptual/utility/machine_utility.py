@@ -2,14 +2,14 @@ import frappe
 
 
 @frappe.whitelist()
-def enque_update_dsr():
-    all_dsr = frappe.db.get_all("DSR Surface")
-    for dsr in all_dsr:
-        update_dsr(dsr.name)
+def enque_update_machine():
+    all_machine = frappe.db.get_all("Machine")
+    for machine in all_machine:
+        update_machine(machine.name)
 
 
 @frappe.whitelist()
-def validate_dsr(doc, method):
+def validate_machine(doc, method):
     set_working_hours(doc)
     set_total_engine_hours(doc)
     set_total_percussion_hour(doc)
@@ -21,8 +21,8 @@ def validate_dsr(doc, method):
 
 
 @frappe.whitelist()
-def update_dsr(dsr):
-    doc = frappe.get_doc("DSR Surface", dsr)
+def update_machine(machine):
+    doc = frappe.get_doc("Machine", machine)
     set_working_hours(doc)
     set_total_engine_hours(doc)
     set_total_percussion_hour(doc)
@@ -46,81 +46,81 @@ def set_totals(doc):
 
 def set_working_hours(doc):
     shift_working_hours = frappe.db.get_all(
-        "Shift Report", {'dsr_surface': doc.name}, 'working_hours')
+        "DSR Surface", {'machine': doc.name}, 'total_working_hours')
     if shift_working_hours:
         total_working_hours = 0
         for data in shift_working_hours:
             print(data)
-            total_working_hours += data.working_hours
+            total_working_hours += data.total_working_hours
         doc.total_working_hours = total_working_hours
 
 
 def set_total_engine_hours(doc):
     shift_engine_hour = frappe.db.get_all(
-        "Shift Report", {'dsr_surface': doc.name}, 'total_engine_hour')
+        "DSR Surface", {'machine': doc.name}, 'total_engine_hours')
     if shift_engine_hour:
         total_engine_hours = 0
         for data in shift_engine_hour:
             print(data)
-            total_engine_hours += data.total_engine_hour
+            total_engine_hours += data.total_engine_hours
         doc.total_engine_hours = total_engine_hours
 
 
 def set_total_percussion_hour(doc):
     shift_percussion_hour = frappe.db.get_all(
-        "Shift Report", {'dsr_surface': doc.name}, 'total_percussion_hour')
+        "DSR Surface", {'machine': doc.name}, 'total_percussion_hours')
     if shift_percussion_hour:
         total_percussion_hours = 0
         for data in shift_percussion_hour:
-            total_percussion_hours += data.total_percussion_hour
+            total_percussion_hours += data.total_percussion_hours
         doc.total_percussion_hours = total_percussion_hours
 
 
 def set_total_drill_meterage(doc):
     total_meterage = frappe.db.get_all(
-        "Shift Report", {'dsr_surface': doc.name}, 'total_meterage')
+        "DSR Surface", {'machine': doc.name}, 'total_drill_meterage')
     if total_meterage:
         total_meterage_value = 0
         for data in total_meterage:
-            total_meterage_value += data.total_meterage
+            total_meterage_value += data.total_drill_meterage
         doc.total_drill_meterage = total_meterage_value
 
 
 def set_total_tramming(doc):
     all_tramming = frappe.db.get_all(
-        "Shift Report", {'dsr_surface': doc.name}, 'tramming')
+        "DSR Surface", {'machine': doc.name}, 'total_tramming')
     if all_tramming:
         sum_of_tramming = 0
         for data in all_tramming:
-            sum_of_tramming += data.tramming
-        doc.total_tramming = sum_of_tramming/60
+            sum_of_tramming += data.total_tramming
+        doc.total_trammingmarching = sum_of_tramming/60
 
 
 def set_total_hsd_consumption(doc):
     total_hsd_consumption = frappe.db.get_all(
-        "Shift Report", {'dsr_surface': doc.name}, 'hsd_consumption')
+        "DSR Surface", {'machine': doc.name}, 'total_hsd_consumption')
     if total_hsd_consumption:
         total_hsd_consumption_value = 0
         for data in total_hsd_consumption:
-            total_hsd_consumption_value += data.hsd_consumption
+            total_hsd_consumption_value += data.total_hsd_consumption
         doc.total_hsd_consumption = total_hsd_consumption_value
 
 
 def set_total_shift_hours(doc):
     total_shift_hour = frappe.db.get_all(
-        "Shift Report", {'dsr_surface': doc.name}, 'shift_hours')
+        "DSR Surface", {'machine': doc.name}, 'total_scheduled_hours')
     if total_shift_hour:
         total_shift_hours = 0
         for data in total_shift_hour:
-            total_shift_hours += data.shift_hours
+            total_shift_hours += data.total_scheduled_hours
         doc.total_scheduled_hours = total_shift_hours
 
 
 def set_total_idle_time(doc):
     total_idle_time = frappe.db.get_all(
-        "Shift Report", {'dsr_surface': doc.name}, 'idle_time')
+        "DSR Surface", {'machine': doc.name}, 'total_idle_hours')
     if total_idle_time:
-        total_idle_time_mins = 0
+        total_idle_time_hours = 0
         for data in total_idle_time:
-            total_idle_time_mins += data.idle_time
-        doc.total_idle_hours = total_idle_time_mins/60
+            total_idle_time_hours += data.total_idle_hours
+        doc.total_idle_hours = total_idle_time_hours/60

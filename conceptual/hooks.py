@@ -100,6 +100,9 @@ app_logo_url = "/files/cd.jpg"
 doc_events = {
     "DSR Surface": {
         "validate": "conceptual.utility.dsr_utility.validate_dsr"
+    },
+    "Machine": {
+        "validate": "conceptual.utility.machine_utility.validate_machine"
     }
 }
 
@@ -123,6 +126,12 @@ doc_events = {
 # 		"conceptual.tasks.monthly"
 # 	]
 # }
+scheduler_events = {
+    "hourly": [
+        "conceptual.utility.dsr_utility.enque_update_dsr",
+        "conceptual.utility.machine_utility.enque_update_machine"
+    ]
+}
 
 # Testing
 # -------
