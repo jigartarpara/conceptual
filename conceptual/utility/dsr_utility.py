@@ -2,7 +2,7 @@ import frappe
 
 
 @frappe.whitelist()
-def validate_dsr(doc):
+def validate_dsr(doc, method):
     set_working_hours(doc)
     set_total_engine_hours(doc)
     set_total_percussion_hour(doc)
