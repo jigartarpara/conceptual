@@ -134,4 +134,4 @@ def set_total_idle_time(doc):
         total_idle_time_hours = 0
         for data in total_idle_time:
             total_idle_time_hours += data.total_idle_hours
-        doc.total_idle_hours = total_idle_time_hours/60
+        doc.total_idle_hours = total_idle_time_hours

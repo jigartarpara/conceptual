@@ -5,6 +5,7 @@ from datetime import datetime
 @frappe.whitelist()
 def calculate_time_diff(name):
     doc = frappe.get_doc("Shift Report", name)
+    time_diff_in_mins = 0
     for row in doc.breakdown_detail:
         if row.from_time and row.to_time:
             time_1 = datetime.strptime(str(row.from_time), "%H:%M:%S")

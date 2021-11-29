@@ -43,7 +43,7 @@ def set_totals(doc):
         doc.percussion_rate = doc.total_drill_meterage/doc.total_percussion_hours
         doc.fuel_consumption_per_hour = doc.total_hsd_consumption/doc.total_engine_hours
         doc.availability = (doc.total_scheduled_hours -
-                            doc.total_idle_hours) / (doc.total_scheduled_hours*100)
+                            doc.total_idle_hours) / doc.total_scheduled_hours*100
     except ZeroDivisionError:
         doc.drill_rate_with_marching = 0
         doc.drill_rate_without_marching = 0
