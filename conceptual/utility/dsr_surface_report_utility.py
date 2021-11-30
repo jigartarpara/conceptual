@@ -1,14 +1,11 @@
 import frappe
-from frappe.utils.background_jobs import enqueue
 
 
 @frappe.whitelist()
 def enque_update_dsr_surface_report():
     all_dsr = frappe.db.get_all("DSR Surface Report", fields=['machine'])
     for dsr in all_dsr:
-        enqueue(update_dsr_surface_report, queue='default', timeout=6000, event='update_dsr_surface_report',
-                machine=dsr.machine)
-        # update_dsr_surface_report(dsr.machine)
+        update_dsr_surface_report(dsr.machine)
 
 
 @frappe.whitelist()
