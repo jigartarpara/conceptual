@@ -131,7 +131,12 @@ doc_events = {
 # }
 scheduler_events = {
     "cron": {
-        "0 12 * * * *": [
+        "0 4 * * *": [
+            "conceptual.utility.dsr_utility.enque_update_dsr",
+            "conceptual.utility.machine_utility.enque_update_machine",
+            "conceptual.utility.dsr_surface_report_utility.enque_update_dsr_surface_report"
+        ],
+        "0 16 * * *": [
             "conceptual.utility.dsr_utility.enque_update_dsr",
             "conceptual.utility.machine_utility.enque_update_machine",
             "conceptual.utility.dsr_surface_report_utility.enque_update_dsr_surface_report"
