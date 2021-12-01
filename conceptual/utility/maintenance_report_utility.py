@@ -8,7 +8,7 @@ def get_maintenance_checklist(template):
 
     checklist = []
 
-    for row in maintenance_checklist_template.maintenance_checklist:
+    for row in maintenance_checklist_template.maintenace_checklist:
         checklist.append({
             'checklist': row.checklist
         })
