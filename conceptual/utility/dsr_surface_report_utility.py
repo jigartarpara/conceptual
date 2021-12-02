@@ -76,7 +76,7 @@ def set_total_engine_hours(doc):
 
 def set_total_percussion_hour(doc):
     shift_percussion_hour = frappe.db.get_all(
-        "DSR Surface", filter={'machine': doc.machine, 'date': ('between', [doc.from_date, doc.to_date])}, fields=['total_percussion_hours'])
+        "DSR Surface", filters={'machine': doc.machine, 'date': ('between', [doc.from_date, doc.to_date])}, fields=['total_percussion_hours'])
     if shift_percussion_hour:
         total_percussion_hours = 0
         for data in shift_percussion_hour:
