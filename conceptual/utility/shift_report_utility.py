@@ -13,4 +13,4 @@ def calculate_time_diff(name):
         time_diff = time_2 - time_1
         time_diff_in_mins = time_diff.seconds / 60
         row.time_in_mins = time_diff_in_mins
-    return time_diff_in_mins
+        return time_diff_in_mins
