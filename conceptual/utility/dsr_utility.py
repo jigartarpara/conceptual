@@ -18,6 +18,7 @@ def validate_dsr(doc, method):
     set_total_hsd_consumption(doc)
     set_total_shift_hours(doc)
     set_total_idle_time(doc)
+    set_total_breakdown_time(doc)
     set_totals(doc)
 
 
@@ -32,6 +33,7 @@ def update_dsr(dsr):
     set_total_hsd_consumption(doc)
     set_total_shift_hours(doc)
     set_total_idle_time(doc)
+    set_total_breakdown_time(doc)
     set_totals(doc)
     doc.save()
 
@@ -141,3 +143,13 @@ def set_total_idle_time(doc):
         for data in total_idle_time:
             total_idle_time_mins += data.idle_time
         doc.total_idle_hours = total_idle_time_mins
+
+
+def set_total_breakdown_time(doc):
+    total_breakdown_time = frappe.db.get_all(
+        "Shift Report", {'dsr_surface': doc.name}, 'breakdown_time_in_mins')
+    if total_breakdown_time:
+        total_breakdown_time_mins = 0
+        for data in total_breakdown_time:
+            total_breakdown_time_mins += data.breakdown_time_in_mins
+        doc.total_breakdown_hour = total_breakdown_time_mins / 60
