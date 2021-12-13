@@ -10,16 +10,17 @@ def enque_update_dsr():
 
 @frappe.whitelist()
 def validate_dsr(doc, method):
-    set_working_hours(doc)
-    set_total_engine_hours(doc)
-    set_total_percussion_hour(doc)
-    set_total_drill_meterage(doc)
-    set_total_tramming(doc)
-    set_total_hsd_consumption(doc)
-    set_total_shift_hours(doc)
-    set_total_idle_time(doc)
-    set_total_breakdown_time(doc)
-    set_totals(doc)
+    if not doc.is_new():
+        set_working_hours(doc)
+        set_total_engine_hours(doc)
+        set_total_percussion_hour(doc)
+        set_total_drill_meterage(doc)
+        set_total_tramming(doc)
+        set_total_hsd_consumption(doc)
+        set_total_shift_hours(doc)
+        set_total_idle_time(doc)
+        set_total_breakdown_time(doc)
+        set_totals(doc)
 
 
 @frappe.whitelist()
