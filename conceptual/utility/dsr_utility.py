@@ -10,15 +10,17 @@ def enque_update_dsr():
 
 @frappe.whitelist()
 def validate_dsr(doc, method):
-    set_working_hours(doc)
-    set_total_engine_hours(doc)
-    set_total_percussion_hour(doc)
-    set_total_drill_meterage(doc)
-    set_total_tramming(doc)
-    set_total_hsd_consumption(doc)
-    set_total_shift_hours(doc)
-    set_total_idle_time(doc)
-    set_totals(doc)
+    if not doc.is_new():
+        set_working_hours(doc)
+        set_total_engine_hours(doc)
+        set_total_percussion_hour(doc)
+        set_total_drill_meterage(doc)
+        set_total_tramming(doc)
+        set_total_hsd_consumption(doc)
+        set_total_shift_hours(doc)
+        set_total_idle_time(doc)
+        set_total_breakdown_time(doc)
+        set_totals(doc)
 
 
 @frappe.whitelist()
@@ -32,18 +34,28 @@ def update_dsr(dsr):
     set_total_hsd_consumption(doc)
     set_total_shift_hours(doc)
     set_total_idle_time(doc)
+    set_total_breakdown_time(doc)
     set_totals(doc)
     doc.save()
 
 
 def set_totals(doc):
     try:
-        doc.drill_rate_with_marching = doc.total_drill_meterage/doc.total_working_hours
-        doc.drill_rate_without_marching = doc.total_drill_meterage/doc.total_engine_hours
-        doc.percussion_rate = doc.total_drill_meterage/doc.total_percussion_hours
-        doc.fuel_consumption_per_hour = doc.total_hsd_consumption/doc.total_engine_hours
-        doc.availability = (doc.total_scheduled_hours -
-                            doc.total_idle_hours) / doc.total_scheduled_hours*100
+        doc.drill_rate_with_marching = doc.total_drill_meterage / \
+            doc.total_working_hours if (
+                doc.total_drill_meterage and doc.total_working_hours) else 0
+        doc.drill_rate_without_marching = doc.total_drill_meterage / \
+            doc.total_engine_hours if (
+                doc.total_drill_meterage and doc.total_engine_hours) else 0
+        doc.percussion_rate = doc.total_drill_meterage / \
+            doc.total_percussion_hours if (
+                doc.total_drill_meterage and doc.total_percussion_hours) else 0
+        doc.fuel_consumption_per_hour = doc.total_hsd_consumption / \
+            doc.total_engine_hours if (
+                doc.total_hsd_consumption and doc.total_engine_hours) else 0
+        if doc.total_scheduled_hours and doc.total_idle_hours:
+            doc.availability = (doc.total_scheduled_hours -
+                                doc.total_idle_hours) / doc.total_scheduled_hours*100
     except ZeroDivisionError:
         doc.drill_rate_with_marching = 0
         doc.drill_rate_without_marching = 0
@@ -132,3 +144,13 @@ def set_total_idle_time(doc):
         for data in total_idle_time:
             total_idle_time_mins += data.idle_time
         doc.total_idle_hours = total_idle_time_mins
+
+
+def set_total_breakdown_time(doc):
+    total_breakdown_time = frappe.db.get_all(
+        "Shift Report", {'dsr_surface': doc.name}, 'breakdown_time_in_mins')
+    if total_breakdown_time:
+        total_breakdown_time_mins = 0
+        for data in total_breakdown_time:
+            total_breakdown_time_mins += data.breakdown_time_in_mins
+        doc.total_breakdown_hour = total_breakdown_time_mins / 60

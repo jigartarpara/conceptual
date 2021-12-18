@@ -10,15 +10,16 @@ def enque_update_machine():
 
 @frappe.whitelist()
 def validate_machine(doc, method):
-    set_working_hours(doc)
-    set_total_engine_hours(doc)
-    set_total_percussion_hour(doc)
-    set_total_drill_meterage(doc)
-    set_total_tramming(doc)
-    set_total_hsd_consumption(doc)
-    set_total_shift_hours(doc)
-    set_total_idle_time(doc)
-    set_totals(doc)
+    if not doc.is_new():
+        set_working_hours(doc)
+        set_total_engine_hours(doc)
+        set_total_percussion_hour(doc)
+        set_total_drill_meterage(doc)
+        set_total_tramming(doc)
+        set_total_hsd_consumption(doc)
+        set_total_shift_hours(doc)
+        set_total_idle_time(doc)
+        set_totals(doc)
 
 
 @frappe.whitelist()
@@ -38,12 +39,21 @@ def update_machine(machine):
 
 def set_totals(doc):
     try:
-        doc.drill_rate_with_marching = doc.total_drill_meterage/doc.total_working_hours
-        doc.drill_rate_without_marching = doc.total_drill_meterage/doc.total_engine_hours
-        doc.percussion_rate = doc.total_drill_meterage/doc.total_percussion_hours
-        doc.fuel_consumption_per_hour = doc.total_hsd_consumption/doc.total_engine_hours
-        doc.availability = (doc.total_scheduled_hours -
-                            doc.total_idle_hours) / doc.total_scheduled_hours*100
+        doc.drill_rate_with_marching = doc.total_drill_meterage / \
+            doc.total_working_hours if (
+                doc.total_drill_meterage and doc.total_working_hours) else 0
+        doc.drill_rate_without_marching = doc.total_drill_meterage / \
+            doc.total_engine_hours if (
+                doc.total_drill_meterage and doc.total_engine_hours) else 0
+        doc.percussion_rate = doc.total_drill_meterage / \
+            doc.total_percussion_hours if (
+                doc.total_drill_meterage and doc.total_percussion_hours) else 0
+        doc.fuel_consumption_per_hour = doc.total_hsd_consumption / \
+            doc.total_engine_hours if (
+                doc.total_hsd_consumption and doc.total_engine_hours) else 0
+        if doc.total_scheduled_hours and doc.total_idle_hours:
+            doc.availability = (doc.total_scheduled_hours -
+                                doc.total_idle_hours) / doc.total_scheduled_hours*100
     except ZeroDivisionError:
         doc.drill_rate_with_marching = 0
         doc.drill_rate_without_marching = 0
