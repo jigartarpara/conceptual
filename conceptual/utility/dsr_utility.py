@@ -148,9 +148,9 @@ def set_total_idle_time(doc):
 
 def set_total_breakdown_time(doc):
     total_breakdown_time = frappe.db.get_all(
-        "Shift Report", {'dsr_surface': doc.name}, 'breakdown_time_in_mins')
+        "Shift Report", {'dsr_surface': doc.name}, 'beakdown_time_in_mins')
     if total_breakdown_time:
         total_breakdown_time_mins = 0
         for data in total_breakdown_time:
-            total_breakdown_time_mins += data.breakdown_time_in_mins
+            total_breakdown_time_mins += data.beakdown_time_in_mins
         doc.total_breakdown_hour = total_breakdown_time_mins / 60
