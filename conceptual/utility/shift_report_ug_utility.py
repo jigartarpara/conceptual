@@ -9,7 +9,7 @@ def get_nrh_table(template):
     description = []
 
     for row in nrh_template.nrh_table:
-        checklist.append({
+        description.append({
             'description': row.description
         })
     return description
