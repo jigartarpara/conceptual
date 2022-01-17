@@ -6,7 +6,7 @@ def get_nrh_table(template):
     nrh_template = frappe.get_doc(
         "NRH Template", template)
 
-    checklist = []
+    description = []
 
     for row in nrh_template.nrh_table:
         checklist.append({
