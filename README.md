@@ -1,6 +1,6 @@
 ## Conceptual
 
-Conceptual Drilling
+Conceptual
 
 #### License
 
