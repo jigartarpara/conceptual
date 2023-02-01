@@ -97,17 +97,17 @@ app_logo_url = "/files/cd.jpg"
 # 		"on_trash": "method"
 #	}
 # }
-doc_events = {
-    "DSR Surface": {
-        "validate": "conceptual.utility.dsr_utility.validate_dsr"
-    },
-    "Machine": {
-        "validate": "conceptual.utility.machine_utility.validate_machine"
-    },
-    "DSR Surface Report": {
-        "validate": "conceptual.utility.dsr_surface_report_utility.validate_dsr_surface_report"
-    }
-}
+# doc_events = {
+#    "DSR Surface": {
+#       "validate": "conceptual.utility.dsr_utility.validate_dsr"
+#  },
+# "Machine": {
+#    "validate": "conceptual.utility.machine_utility.validate_machine"
+#    },
+#    "DSR Surface Report": {
+#        "validate": "conceptual.utility.dsr_surface_report_utility.validate_dsr_surface_report"
+#    }
+# }
 
 # Scheduled Tasks
 # ---------------
@@ -129,25 +129,25 @@ doc_events = {
 # 		"conceptual.tasks.monthly"
 # 	]
 # }
-scheduler_events = {
-    "cron": {
-        "0 4 * * *": [
-            "conceptual.utility.dsr_utility.enque_update_dsr",
-            "conceptual.utility.machine_utility.enque_update_machine",
-            "conceptual.utility.dsr_surface_report_utility.enque_update_dsr_surface_report"
-        ],
-        "0 16 * * *": [
-            "conceptual.utility.dsr_utility.enque_update_dsr",
-            "conceptual.utility.machine_utility.enque_update_machine",
-            "conceptual.utility.dsr_surface_report_utility.enque_update_dsr_surface_report"
-        ]
-    }
+# scheduler_events = {
+#    "cron": {
+#        "0 4 * * *": [
+#            "conceptual.utility.dsr_utility.enque_update_dsr",
+#           "conceptual.utility.machine_utility.enque_update_machine",
+#            "conceptual.utility.dsr_surface_report_utility.enque_update_dsr_surface_report"
+#        ],
+#        "0 16 * * *": [
+#            "conceptual.utility.dsr_utility.enque_update_dsr",
+#            "conceptual.utility.machine_utility.enque_update_machine",
+#            "conceptual.utility.dsr_surface_report_utility.enque_update_dsr_surface_report"
+#        ]
+#    }
     # "hourly": [
     #     "conceptual.utility.dsr_utility.enque_update_dsr",
     #     "conceptual.utility.machine_utility.enque_update_machine",
     #     "conceptual.utility.dsr_surface_report_utility.enque_update_dsr_surface_report"
     # ]
-}
+# }
 
 # Testing
 # -------
